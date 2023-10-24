@@ -6,6 +6,9 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.BiConsumer;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -33,5 +36,20 @@ class JardinTest {
     String actual = new Jardin(commandRegister).from("test").process().writeOutputAsString();
 
     assertEquals(expected, actual);
+  }
+
+  @Test
+  void jardinProcessTest3() throws IOException, URISyntaxException {
+    List<String> operation = new ArrayList<>();
+
+    CommandRegister commandRegister = new CommandRegister();
+    BiConsumer<Jardin, Tondeuse> biConsumer = (__, ___) -> operation.add("1");
+    commandRegister.registerOption(Mouvement.GAUCHE, biConsumer);
+    commandRegister.registerOption(Mouvement.DROITE, biConsumer);
+    commandRegister.registerOption(Mouvement.AVANCER, biConsumer);
+
+    String __ = new Jardin(commandRegister).from("test2").process().writeOutputAsString();
+
+    assertEquals(19, operation.size());
   }
 }
