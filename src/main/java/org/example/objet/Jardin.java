@@ -4,6 +4,7 @@ import org.example.CommandRegister;
 import org.example.mouvement.Mouvement;
 import org.example.mouvement.Orientation;
 
+import java.io.BufferedWriter;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
@@ -14,9 +15,9 @@ import java.util.function.BiConsumer;
 public class Jardin {
 
     private final CommandRegister commandRegister;
+    private final List<Tondeuse> tondeuses = new ArrayList<>();
     private int sizeX;
     private int sizeY;
-    private List<Tondeuse> tondeuses = new ArrayList<>();
 
     public Jardin(CommandRegister commandRegister) {
         this.commandRegister = commandRegister;
@@ -66,5 +67,22 @@ public class Jardin {
         }
 
         return this;
+    }
+
+    public void writeOutput() {
+        StringBuilder sb = new StringBuilder();
+        tondeuses.forEach(tondeuse -> sb.append(tondeuse.toString()).append("\n"));
+
+        try (BufferedWriter writer = Files.newBufferedWriter(Path.of("output"))) {
+            writer.write(sb.toString());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public String writeOutputAsString() {
+        StringBuilder sb = new StringBuilder();
+        tondeuses.forEach(tondeuse -> sb.append(tondeuse.toString()).append("\n"));
+        return sb.toString();
     }
 }

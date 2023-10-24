@@ -6,7 +6,6 @@ import org.example.objet.Tondeuse;
 
 import java.util.HashMap;
 import java.util.function.BiConsumer;
-import java.util.function.Consumer;
 
 public class CommandRegister {
 

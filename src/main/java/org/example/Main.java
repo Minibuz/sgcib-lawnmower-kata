@@ -2,13 +2,9 @@ package org.example;
 
 import org.example.mouvement.Mouvement;
 import org.example.objet.Jardin;
-import org.example.objet.Tondeuse;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.util.HashMap;
-import java.util.function.BiConsumer;
-import java.util.function.Consumer;
 
 public class Main {
 
@@ -23,7 +19,8 @@ public class Main {
     });
 
     new Jardin(commandRegister)
-            .from("entry")
-            .process();
+            .from("input")
+            .process()
+            .writeOutput();
   }
 }
