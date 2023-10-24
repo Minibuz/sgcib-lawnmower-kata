@@ -2,6 +2,7 @@ package org.example.objet;
 
 import org.example.mouvement.Mouvement;
 import org.example.mouvement.Orientation;
+import org.example.mouvement.Vecteur;
 
 import java.util.List;
 import java.util.Objects;
@@ -18,6 +19,35 @@ public class Tondeuse {
         this.y = y;
         this.orientation = orientation;
         this.mouvements = List.copyOf(mouvements);
+    }
+
+    public List<Mouvement> getMouvements() {
+        return mouvements;
+    }
+
+    public void rotateLeft() {
+        int newOrientation =
+                (orientation.ordinal() - 1 + Orientation.values().length) % Orientation.values().length;
+        this.orientation = Orientation.values()[newOrientation];
+    }
+
+    public void rotateRight() {
+        int newOrientation =
+                (orientation.ordinal() + 1 + Orientation.values().length) % Orientation.values().length;
+        this.orientation = Orientation.values()[newOrientation];
+    }
+
+    public void advance() {
+        Vecteur vecteur = this.orientation.getVecteur();
+        this.x += vecteur.x();
+        this.y += vecteur.y();
+    }
+
+    public boolean isInside(int sizeX, int sizeY) {
+        Vecteur vecteur = this.orientation.getVecteur();
+        int potentialX = this.x + vecteur.x();
+        int potentialY = this.y + vecteur.y();
+        return (potentialX <= sizeX && potentialX >= 0) && (potentialY <= sizeY && potentialY >= 0);
     }
 
     @Override
