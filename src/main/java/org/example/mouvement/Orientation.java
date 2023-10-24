@@ -25,6 +25,10 @@ public enum Orientation {
         this.vecteur = vecteur;
     }
 
+    public String getInitiale() {
+        return initiale;
+    }
+
     public Vecteur getVecteur() {
         return vecteur;
     }
@@ -32,4 +36,5 @@ public enum Orientation {
     public static Orientation getOrientation(String name) {
         return BY_LETTER.get(name);
     }
+
 }
